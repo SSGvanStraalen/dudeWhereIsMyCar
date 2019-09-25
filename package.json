@@ -1,0 +1,22 @@
+{
+  "name": "dudewhereismycar",
+  "version": "1.0.0",
+  "description": "PWA example app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SSGvanStraalen/dudeWhereIsMyCar.git"
+  },
+  "keywords": [
+    "PWA"
+  ],
+  "author": "Sven van Straalen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SSGvanStraalen/dudeWhereIsMyCar/issues"
+  },
+  "homepage": "https://github.com/SSGvanStraalen/dudeWhereIsMyCar#readme"
+}

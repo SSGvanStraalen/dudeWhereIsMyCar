@@ -1,0 +1,94 @@
+:root {
+    /* prime colors */
+    --non-poto-blue: #A2D6EB;
+    --carolina-blue: #57B3D8;
+    --dark-cerulean-blue: #004481;
+    --prussian-blue: #0A3256;
+    --coco-gray: #C0C0C0;
+
+    /* prime colors with lighten and darken */
+
+    /* non photo */
+    --non-poto-blue-lighter: #cce8f4;
+    --non-poto-blue-lightest: #f6fbfd;
+    --non-poto-blue-darker: #78c3e2;
+    --non-poto-blue-darkest: #4eb1d9;
+
+    /* carolina-blue */
+    --carolina-blue-lighter: #80c6e2;
+    --carolina-blue-lightest: #aad8eb;
+    --carolina-blue-darker: #2f9fcd;
+    --carolina-blue-darkest: #267fa3;
+
+    /* dark-cerulean-blue */
+    --dark-cerulean-blue-lighter: #005fb4;
+    --dark-cerulean-blue-lightest: #007ae7;
+    --dark-cerulean-blue-darker: #00294e;
+    --dark-cerulean-blue-darkest: #000e1b;
+
+    /* dark-cerulean-blue */
+    --prussian-blue-lighter: #0f4d84;
+    --prussian-blue-lightest: #1567b1;
+    --prussian-blue-darker: #051728;
+
+    /* cocogray */
+    --coco-gray-lighter: #d9d9d9;
+    --coco-gray-lightest: #f3f3f3;
+    --coco-gray-darker: #a6a6a6;
+    --coco-gray-darkest: #8d8d8d;
+    --coco-gray-extra-darkest: #737373;
+    --coco-gray-super-darkest: #5a5a5a;
+    --coco-gray-super-super-darkest: #404040;
+    --coco-gray-black: #0d0d0d;
+
+    /* element colors */
+    --main-bg-color: var(--coco-gray-lightest);
+    --body-bg-color: var(--coco-gray-lighter);
+}
+
+html { 
+    font-size: calc(1em + 1vw) 
+}
+
+body {
+    background-color: var(--body-bg-color);
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: var(--carolina-blue-lightest);
+    color: var(--coco-gray-super-super-darkest);
+    text-align: center;
+    margin: 0;
+    padding: 2vh 0 0 0;
+}
+
+header h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+main {
+    background-color: var(--main-bg-color);
+    height: 90vh;
+    margin: 0;
+    padding: 2vw;
+}
+
+.add-todo-button {
+    display: block;
+    height: 15vw;
+    width: 15vw;
+    border-radius: 50%;
+    border: 0px;
+    position: absolute;
+    bottom: 5vh;
+    right: 2vw;
+    font-size: inherit;
+    background-color: var(--dark-cerulean-blue-lightest);
+    color: var(--coco-gray-lightest);
+    font-size: calc(4em + 1vw);
+    padding: 0;
+    text-align: center;
+    margin: auto;
+}
