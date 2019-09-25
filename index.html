@@ -4,17 +4,20 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet" type="text/css" />
     <title>Dude where is my car radar</title>
   </head>
 <body>
-
+    <h1>Car Radar</h1>
+    <img style="-webkit-user-select: none;margin: auto;" height="400" src="radar.gif">
     <div>
       Your current location = <span id="currentLocation"></span>
     </div>
     <div>
       Your saved location = <span id="savedLocation">nothing saved yet...</span>
     </div>
-    <button onclick="saveLocation()"> save current location</button>
+    <button class="saveLocationButton" onclick="saveLocation()"> save current location</button>
 <script src="main.js"></script>
 </body>
 </html>
