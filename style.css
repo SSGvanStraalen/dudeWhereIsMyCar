@@ -29,3 +29,9 @@ body {
     color: var(--coco-green);
     padding: 8px;
 }
+
+.radar {
+    width: 100%;
+    max-height: 400px;
+    max-width: 400px;
+}
