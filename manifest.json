@@ -1,4 +1,6 @@
 {
+  "name": "Carfinder",
+  "short_name": "findcar",
   "theme_color": "#000000",
   "background_color": "#000000",
   "display": "browser",
