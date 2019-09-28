@@ -1,7 +1,43 @@
 let locationElement = document.querySelector('#currentLocation');
+let statusElement = document.querySelector('#status');
 let savedLocationElement = document.querySelector('#savedLocation');
 let currentLocationIsKnown = false;
 let currentLocation;
+let savedLocation;
+
+
+a=new AudioContext() // browsers limit the number of concurrent audio contexts, so you better re-use'em
+
+function beep(vol, freq, duration){
+  v=a.createOscillator()
+  u=a.createGain()
+  v.connect(u)
+  v.frequency.value=freq
+  v.type="square"
+  u.connect(a.destination)
+  u.gain.value=vol*0.01
+  v.start(a.currentTime)
+  v.stop(a.currentTime+duration*0.001)
+}
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+}
+  
+function deg2rad(deg) {
+return deg * (Math.PI/180)
+}
+
 
 // Check that service workers are supported
 if ('serviceWorker' in navigator) {
@@ -13,6 +49,7 @@ if ('serviceWorker' in navigator) {
 
 const setCurrentLocationInit = function setTheCurrentLocationForTheFirstTime() {
     return new Promise(resolve =>{
+        console.log('gggg')
         navigator.geolocation.getCurrentPosition(location =>{
             console.log('kom ik hier?')
             currentLocation = location;
@@ -28,7 +65,8 @@ const init = async function initializeTheApp(){
     await setCurrentLocationInit();
     showCurrentPosition(currentLocation);
     if(localStorage.savedGPSPosition){
-        showSavedPosition(JSON.parse(localStorage.savedGPSPosition));
+        savedLocation = JSON.parse(localStorage.savedGPSPosition);
+        showSavedPosition(savedLocation);
     }
     navigator.geolocation.watchPosition(updateCurrentLocation, undefined, {
         enableHighAccuracy: true
@@ -49,7 +87,73 @@ const saveLocation = async function saveCurrentGPSLocationToLocalStorage(){
 const updateCurrentLocation = async function updateCurrentLocationTroughWatch(position) {
     console.log('update!');
     showCurrentPosition(position);
+    showStatusMessage(checkCloseness());
     currentLocation = position;
+}
+
+const checkCloseness = function checkHowCloseCurrentPositionIsFromSavedPosition() {
+    let distanceInKm = getDistanceFromLatLonInKm(
+        currentLocation.coords.latitude,
+        currentLocation.coords.longitude,
+        savedLocation.coords.latitude, 
+        savedLocation.coords.longitude
+        );
+    let message = 'Still searching...';
+
+    switch (true) {
+        case distanceInKm > 1:
+            message =  'You are more than 1 KM away';
+            beep(100, 900, 200)
+            break;
+        case distanceInKm > 0.75:
+            message =  'You are more than 750 meters away';
+            beep(100, 900, 200)
+            break;
+        case distanceInKm > 0.5:
+            message =  'You are more than 500 meters away';
+            beep(100, 900, 200)
+            break;
+        case distanceInKm > 0.25:
+            message =  'You are more than 250 meters away';
+            beep(100, 900, 200)
+            break;
+        case distanceInKm > 0.1:
+            message =  'You are more than 100 meters away';
+            beep(100, 900, 200)
+            break;
+        case distanceInKm > 0.05:
+            message =  'You are more than 50 meters away';
+            beep(100, 900, 200)
+            break;
+        case distanceInKm > 0.04:
+            message =  'Dude You are getting close';
+            beep(100, 900, 200)
+            break;        
+        case distanceInKm > 0.03:
+            message =  'Dude you are doing great';
+            beep(100, 900, 200)
+            break; 
+        case distanceInKm > 0.02:
+            message =  'Oooooh Snap you should be able to see him';
+            beep(100, 900, 200)
+            break;
+        case distanceInKm > 0.02:
+            message =  'Dude where\'s your car?';
+            beep(100, 900, 200)
+            break; 
+        case distanceInKm > 0.01:
+            message =  'Dude 10 meters brah... ';
+            beep(100, 900, 200)
+            break; 
+        default:
+            message =  'Dude or you are at your car or in space maybe both...';
+            beep(100, 900, 200)
+        }
+    return message;
+}
+
+function showStatusMessage(message) {
+    statusElement.innerHTML = message;
 }
 
 function showCurrentPosition(position) {
