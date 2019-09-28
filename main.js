@@ -5,21 +5,6 @@ let currentLocationIsKnown = false;
 let currentLocation;
 let savedLocation;
 
-
-a=new AudioContext() // browsers limit the number of concurrent audio contexts, so you better re-use'em
-
-function beep(vol, freq, duration){
-  v=a.createOscillator()
-  u=a.createGain()
-  v.connect(u)
-  v.frequency.value=freq
-  v.type="square"
-  u.connect(a.destination)
-  u.gain.value=vol*0.01
-  v.start(a.currentTime)
-  v.stop(a.currentTime+duration*0.001)
-}
-
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -40,7 +25,7 @@ return deg * (Math.PI/180)
 
 
 // Check that service workers are supported
-if ('serviceWorker' in navigator) {
+if ('serviceWorkerh' in navigator) {
   // Use the window load event to keep the page load performant
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('service-worker.js');
@@ -103,51 +88,39 @@ const checkCloseness = function checkHowCloseCurrentPositionIsFromSavedPosition(
     switch (true) {
         case distanceInKm > 1:
             message =  'You are more than 1 KM away';
-            beep(100, 900, 200)
             break;
         case distanceInKm > 0.75:
             message =  'You are more than 750 meters away';
-            beep(100, 900, 200)
             break;
         case distanceInKm > 0.5:
             message =  'You are more than 500 meters away';
-            beep(100, 900, 200)
             break;
         case distanceInKm > 0.25:
             message =  'You are more than 250 meters away';
-            beep(100, 900, 200)
             break;
         case distanceInKm > 0.1:
             message =  'You are more than 100 meters away';
-            beep(100, 900, 200)
             break;
         case distanceInKm > 0.05:
             message =  'You are more than 50 meters away';
-            beep(100, 900, 200)
             break;
         case distanceInKm > 0.04:
             message =  'Dude You are getting close';
-            beep(100, 900, 200)
             break;        
         case distanceInKm > 0.03:
             message =  'Dude you are doing great';
-            beep(100, 900, 200)
             break; 
         case distanceInKm > 0.02:
             message =  'Oooooh Snap you should be able to see him';
-            beep(100, 900, 200)
             break;
         case distanceInKm > 0.02:
             message =  'Dude where\'s your car?';
-            beep(100, 900, 200)
             break; 
         case distanceInKm > 0.01:
             message =  'Dude 10 meters brah... ';
-            beep(100, 900, 200)
             break; 
         default:
             message =  'Dude or you are at your car or in space maybe both...';
-            beep(100, 900, 200)
         }
     return message;
 }

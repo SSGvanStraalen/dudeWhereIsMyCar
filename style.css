@@ -35,3 +35,6 @@ body {
     max-height: 400px;
     max-width: 400px;
 }
+button:focus {
+    outline: none;
+  }
