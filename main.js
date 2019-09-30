@@ -23,9 +23,8 @@ function deg2rad(deg) {
 return deg * (Math.PI/180)
 }
 
-
 // Check that service workers are supported
-if ('serviceWorkerh' in navigator) {
+if ('serviceWorker' in navigator) {
   // Use the window load event to keep the page load performant
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('service-worker.js');
@@ -72,8 +71,10 @@ const saveLocation = async function saveCurrentGPSLocationToLocalStorage(){
 const updateCurrentLocation = async function updateCurrentLocationTroughWatch(position) {
     console.log('update!');
     showCurrentPosition(position);
-    showStatusMessage(checkCloseness());
-    currentLocation = position;
+    if(savedLocation){
+        showStatusMessage(checkCloseness());
+        currentLocation = position;
+    }
 }
 
 const checkCloseness = function checkHowCloseCurrentPositionIsFromSavedPosition() {
