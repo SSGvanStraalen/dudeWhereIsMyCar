@@ -16,6 +16,11 @@
     <title>Dude where is my car radar</title>
   </head>
 <body>
+  <div id="waitOnAccaptingGeoLocation">
+    <p>Please accept geolocation else it wont work :D</p>
+    <p>If you still see this probably it tries to get a location</p>
+  </div>
+  <div class='d-none' id="runningApp">
     <h1>Car Radar</h1>
     <img class="radar" src="radar.gif">
     <div>
@@ -28,6 +33,7 @@
       Your saved location = <span id="savedLocation">nothing saved yet...</span>
     </div>
     <button class="saveLocationButton" onclick="saveLocation()"> save current location</button>
+  </div>
 <script src="main.js"></script>
 </body>
 </html>

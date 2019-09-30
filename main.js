@@ -1,6 +1,8 @@
 let locationElement = document.querySelector('#currentLocation');
 let statusElement = document.querySelector('#status');
 let savedLocationElement = document.querySelector('#savedLocation');
+let appElement = document.querySelector('#runningApp');
+let questionElement = document.querySelector('#waitOnAccaptingGeoLocation');
 let currentLocationIsKnown = false;
 let currentLocation;
 let savedLocation;
@@ -33,9 +35,7 @@ if ('serviceWorker' in navigator) {
 
 const setCurrentLocationInit = function setTheCurrentLocationForTheFirstTime() {
     return new Promise(resolve =>{
-        console.log('gggg')
         navigator.geolocation.getCurrentPosition(location =>{
-            console.log('kom ik hier?')
             currentLocation = location;
             resolve(true);
         }, e =>{console.log(e)}, {
@@ -43,11 +43,16 @@ const setCurrentLocationInit = function setTheCurrentLocationForTheFirstTime() {
         })
     })
 }
-
+const toggleBlocks = function toggleTheAppElementAndQuestionElementToBeVisible() {
+    appElement.classList.toggle('d-none');
+    questionElement.classList.toggle('d-none');
+}
 const init = async function initializeTheApp(){
-    console.log('init ')
     await setCurrentLocationInit();
-    showCurrentPosition(currentLocation);
+    if(currentLocation){
+        toggleBlocks();
+        showCurrentPosition(currentLocation);
+    }
     if(localStorage.savedGPSPosition){
         savedLocation = JSON.parse(localStorage.savedGPSPosition);
         showSavedPosition(savedLocation);
@@ -64,12 +69,13 @@ const saveLocation = async function saveCurrentGPSLocationToLocalStorage(){
             longitude : currentLocation.coords.longitude
         }
     }
+    savedLocation = saveLocation;
     localStorage.savedGPSPosition = JSON.stringify(saveLocation);
     showSavedPosition(saveLocation);
+    showStatusMessage(checkCloseness());
 };
 
 const updateCurrentLocation = async function updateCurrentLocationTroughWatch(position) {
-    console.log('update!');
     showCurrentPosition(position);
     if(savedLocation){
         showStatusMessage(checkCloseness());
