@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node build",
-    "start": "browser-sync start --server 'src' --files 'src/*' "
+    "dev": "browser-sync start --server 'src' --files 'src/*' ",
+    "start": "npm run build browser-sync --server 'dist'"
   },
   "repository": {
     "type": "git",
