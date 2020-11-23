@@ -1,9 +1,10 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 console.log('service worker is loaded...');
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
 
+  //This is now outdated!!! please use a nice bundler like webpack instead!
   workbox.precaching.precacheAndRoute([
     'index.html'
   ]);
@@ -28,7 +29,7 @@ if (workbox) {
       // Use a custom cache name.
       cacheName: 'image-cache',
       plugins: [
-        new workbox.expiration.Plugin({
+        new workbox.expiration.ExpirationPlugin({
           // Cache only 20 images.
           maxEntries: 20,
           // Cache for a maximum of a week.
